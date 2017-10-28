@@ -1,0 +1,173 @@
+.navbar{
+
+	transition: 0.3s all;
+	background-color: transparent;
+	padding-bottom: 0;
+	border-top: none;
+	border-bottom: 1px;
+	border-bottom-style: groove;
+}
+
+.modal-dialog{
+
+	width: 80%;
+	height: 80%;
+}
+
+header.sections{
+
+	height: 80vh;
+	padding-top: 0 !important;
+}
+
+.formulario{
+
+	display: none;
+}
+
+.active-form{
+
+	display: block;
+}
+
+.nav{
+
+	position: absolute;
+	right: 12%;
+	bottom: 0;
+}
+
+.navbar li>a{
+
+	color: white !important;
+}
+
+.menu-bg{
+
+	background-color: white;
+}
+
+.menu-bg li>a{
+
+	color: black !important;
+}
+
+.menu-bg .nav > li.active, li.active>a:focus{
+
+	background-color: #19B419 !important;
+	color: white !important;
+}
+
+li.active>a{
+
+	color: white !important;
+}
+
+.navbar-nav>li>a:hover{
+
+	color: #B7F600 !important;
+}
+
+.home-slider{
+
+	position: absolute;
+	height: 100%;
+}
+
+.home-slider .carousel-inner, .carousel.slide{
+
+	height: 100%;
+	overflow: hidden
+}
+
+.home-info{
+
+	padding: 3%;
+	background: white;
+	position: absolute;
+	bottom: 1%;
+	color:black;
+	width: 33%;
+}
+
+@media only screen and (min-width: 1024px) {
+	.form-name, .form-apellido, .form-sexo, .select-talla, .form-categoria, .form-sangre{
+
+		width: 47%;
+		display: inline-block;
+	}
+
+	.form-name, .form-sexo, .form-categoria{
+
+		margin-right: 6%;
+	}
+	.date-cont>* {
+
+		width: 50%;
+		display: inline-block;
+	}
+
+	.form-sangre > label{
+
+		width: 65%;
+		text-align: center;
+	}
+
+	#selectSangre{
+
+		width: 35%;
+	}
+
+	.form-sangre > * {
+
+		display: inline-block;
+	}
+}
+
+.remove-form > i{
+
+	border-radius: 50%;
+	z-index: -1;
+	cursor: pointer;
+}
+
+.remove-form {
+
+	position: absolute;
+	right: 0;
+	top: -30%;
+}
+
+.form-tab{
+
+	position: relative;
+	display: inline-block;
+	background-color: #19B419;
+	padding: 1% 2%;
+}
+
+.new-tab-btn{
+
+	background-color: #19B419;
+}
+
+.form-tab.active{
+
+	background-color: red !important;
+}
+
+.form-tabs > div{
+
+	display: inline-block;
+	cursor: pointer;
+}
+
+.popover{
+
+	width: 20vw;
+}
+
+.form-rol{
+
+	display: block;
+}
