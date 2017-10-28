@@ -219,30 +219,56 @@
 					<div class="title text-center arrow-left">
 						<img class="hidden-xs" src="./vendor/bootstrap/images/left-arrow.png" alt="" />
 
-						<h4 class="">Our Features</h4>
+						<h4 class="">Inscripción</h4>
 					</div>
 				</div>
 				<div class="info-container">
 					<div class="row">
 						<div class="col-md-5 col-md-offset-1">
 							Noticias
+							<button class="btn btn-primary" data-toggle="modal" data-target="#modalReglamento">
+								Reglamento
+							</button>
 						</div>
 						<div class="col-md-5">
 							<div class="form-nav">
-								<nav id="navTabs" class="form-tabs">
-									<div id="addNewTab" class="new-tab-btn" onclick="createForm()">
-										<i class="fa fa-user-plus" aria-hidden="true"></i>Agregar Persona
-									</div>
-								</nav>
+								<div>
+									<ul id="navTabs" class="nav nav-tabs">
+										<li id="addNewTab" class="new-tab-btn" onclick="createForm()">
+											<a>
+												<i class="fa fa-user-plus" aria-hidden="true"></i> Agregar Persona
+											</a>
+										</li>
+									</ul>
+								</div>
+								
 								<div id="forms">
-									<input class="input-comprobante" type="file" style="float: left;">
+									<input class="input-comprobante" type="file" style="">
 
 									<div>
-										<label style="margin: 1% 2%; float: right;">He leido los terminos 
+										<label style="margin: 1% 2%;">He leido los terminos 
 											<input id="checkboxTerms" type="checkbox">
 										</label>
 									</div>
-									<button id="submitForms" class="btn-submit-form">Registrase</button>
+									<div>
+										<span>Total:</span>
+										<label id="total"></label>
+									</div>
+									<button id="submitForms" class="btn btn-lg btn-submit-form">
+										<span id="textBtn">Registrase</span>
+										<div class='submit-loader'>&nbsp;</div>
+									</button>
+									<div id="alertContainer">
+										<div id="successAlert" class="alert alert-success alert-dismissable fade in">
+											<strong><i class="fa fa-check" aria-hidden="true"></i>¡Te has Registrado!</strong> Nos pondremos en contacto cuando hayamos confirmado tu registro. 
+										</div>
+										<div id="errorAlert" class="alert alert-danger alert-dismissable fade in">
+											<strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>¡Algo ha Salido mal!</strong> Intentelo más tarde por favor.
+										</div>
+										<div id="connectionAlert" class="alert alert-warning alert-dismissable fade in">
+											<strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>¡Problemas de conexión!</strong> No se ha logrado establecer conexión con el servidor. Vuelva a interntarlo más tarde por favor
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -489,19 +515,9 @@
 		<div id="modalReglamento" class="modal fade" role="dialog">
 			<div class="modal-dialog">
 
-			<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Modal Header</h4>
-					</div>
-					<div class="modal-body">
-						<p>Some text in the modal.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
+				<object class="embed-container" data="./resources/reglamento-vigente.pdf" type="application/pdf">
+					<embed src="./resources/reglamento-vigente.pdf" type="application/pdf" />
+				</object>
 
 			</div>
 		</div>
@@ -609,5 +625,6 @@
 		<script src="./js/form.js"></script>
 		<script src="./js/spears.js"></script>
 		<script src="./js/mapa.js"></script>
+		<script src="./js/ajax.js"></script>
 	</body>
 </html>

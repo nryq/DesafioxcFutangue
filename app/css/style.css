@@ -30,7 +30,7 @@ header.sections{
 	display: block;
 }
 
-.nav{
+#ulMenu{
 
 	position: absolute;
 	right: 12%;
@@ -91,13 +91,13 @@ li.active>a{
 }
 
 @media only screen and (min-width: 1024px) {
-	.form-name, .form-apellido, .form-sexo, .select-talla, .form-categoria, .form-sangre{
+	.form-name, .form-apellido, .form-sexo, .select-talla, .form-categoria, .form-sangre, .form-email, .form-club{
 
 		width: 47%;
 		display: inline-block;
 	}
 
-	.form-name, .form-sexo, .form-categoria{
+	.form-name, .form-sexo, .form-categoria, .form-email{
 
 		margin-right: 6%;
 	}
@@ -138,22 +138,29 @@ li.active>a{
 	top: -30%;
 }
 
-.form-tab{
+/*.form-tab{
 
 	position: relative;
 	display: inline-block;
 	background-color: #19B419;
 	padding: 1% 2%;
+}*/
+
+.new-tab-btn > a:hover{
+
+	background-color: #A3F303 !important;
 }
 
-.new-tab-btn{
+.new-tab-btn > a, li.form-tab.active > a{
 
 	background-color: #19B419;
+	color: white;
+	cursor: pointer !important;
 }
 
-.form-tab.active{
+.form-tab.active > a{
 
-	background-color: red !important;
+	background-color: #19B419 !important;
 }
 
 .form-tabs > div{
@@ -170,4 +177,85 @@ li.active>a{
 .form-rol{
 
 	display: block;
+}
+
+.incompleto, .has-error{
+
+	/*border-color: #a94442;*/
+	box-shadow: inset 0px 0px 10px 1px rgba(255,0,0,0.63);
+}
+
+.fa-asterisk{
+
+	color:red;
+}
+
+.btn-submit-form{
+
+	background-color: #19B419;
+	color: white;
+	display: block;
+}
+
+.btn-submit-form:hover{
+
+	background-color: #A3F303;
+	color: white;
+}
+
+.header-form{
+
+	text-align: center;
+}
+
+.remove-form:hover{
+
+	color: red;
+}
+
+.submit-loader {
+
+	display: none;
+	margin: auto;
+	border: 5px solid #f3f3f3;
+	border-top: 5px solid #19B419;
+	border-radius: 50%;
+	width: 1.3em;
+	height: 1.3em;
+	animation: spin 2s linear infinite;
+}
+
+#textBtn{
+
+	float: right;
+}
+
+.active-text{
+
+    color: transparent;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.embed-container{
+
+	width: 100%;
+	height: 100%;
+}
+
+#alertContainer{
+
+	position: absolute;
+	width: 80%;
+	left: 10%;
+	top: 20%;
+	pointer-events: none;
+}
+
+#alertContainer > *{
+
+	display: none;
 }
