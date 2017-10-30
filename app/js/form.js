@@ -72,20 +72,20 @@ function createForm(){
 	sangreCont.appendChild(selectSangre);
 
 	var divPhone = document.createElement("div");
-		divPhone.className="phone-container";
+		divPhone.className="phone-container input-group";
 		divPhone.style.cssFloat = "left";
   
 	var divPhoneAux = document.createElement("div");
-		divPhoneAux.className="phone-container";
+		divPhoneAux.className="phone-container input-group";
 		divPhoneAux.style.cssFloat = "right";
   
-	var lblphone = document.createElement("div");
+	var lblphone = document.createElement("span");
 		lblphone.innerHTML = "+56";
-		lblphone.className="phone-zone";
+		lblphone.className="phone-zone input-group-addon";
 
-	var lblphonea = document.createElement("div");
+	var lblphonea = document.createElement("span");
 		lblphonea.innerHTML = "+56";
-		lblphonea.className="phone-zone";
+		lblphonea.className="phone-zone input-group-addon";
   
 	var inputPhone = createTextInput('fono', 'form-control form-phone', 'Fono contacto', {onkeydown: allowNumbrePhone});
 
@@ -331,21 +331,17 @@ function addTab(){
 		$(btnRemove).data('btn-cancel-label', '');
 		$(btnRemove).data('btn-ok-class', 'btn-danger');
 		$(btnRemove).data('btn-cancel-class', 'btn-success');
-		// btnRemove.addEventListener('click', removeTabBtn, false);
+		btnRemove.removeEventListener('click', showForm);
 
 	newTab.appendChild(labelTitle);
 	newTab.appendChild(btnRemove);
 
 	document.getElementById('navTabs').insertBefore(newTab, document.getElementById('addNewTab'));
 
-	// hideAllForms();
-
 	jQuery(newTab).addClass("active");
 
 	showFormN(parseInt(newTab.id.split("_")[1]));
-
 	initConfirmtationPopover();
-
 	calculateTotal();
 }
 
@@ -354,8 +350,9 @@ function initConfirmtationPopover(){
 	$('[data-toggle=confirmation]').confirmation({
 		rootSelector: '[data-toggle=confirmation]',
 		// other options
-		onConfirm: function() {
+		onConfirm: function(e) {
 			removeTabBtn(this);
+			e.stopPropagation();
 		},
 		onCancel: function() {
 		},
@@ -374,7 +371,7 @@ function hideAllForms(){
 	jQuery('.formulario').removeClass('active-form');
 }
 
-function showForm(target){
+function showForm(e){
 
 	hideAllForms();
 
@@ -384,7 +381,7 @@ function showForm(target){
 
 function showFormN(index){
 
-	jQuery('#formulario_'+ index ).addClass('active-form');
+	$('#formulario_'+ index ).addClass('active-form');
 }
 
 function deleteForm(tab){
@@ -399,14 +396,11 @@ function deleteForm(tab){
 	tabParent.removeChild(tab);
 	formParent.removeChild(form);
 
-	console.log(flag, $("#forms").children().first(), jQuery(tabParent).children().not('.new-tab-btn').first());
-
 	if(flag){
 		
 		$("#forms").children().first().addClass('active-form');
-		jQuery(tabParent).children().not('.new-tab-btn').first().addClass("active");
+		$(tabParent).children().not('.new-tab-btn').first().addClass("active");
 	}
-
 	calculateTotal();
 }
 
@@ -498,14 +492,12 @@ function validarForm(){
 	var checkboxT = document.querySelectorAll('#checkboxTerms');
 	for(var index = 0; index < checkboxT.length; index++){
 
-		if(!checkboxT[index].checked){
-
-			flag = false;
-			alert("Debes aceptar el reglamento");
-		}
+		if(!checkboxT[index].checked)	flag = false;
 	}
 
 	if($('.input-comprobante').val() == '')	flag = false;
+
+	if(!flag)	showAlertMessage(1);
 	
 	return flag;
 }
@@ -712,5 +704,77 @@ function getDataForm(){
 
 function clearFormData(){
 
+	$('.formulario, .form-tab').remove();
+	formCont = 0;
+	createForm();
+}
 
+function showAlertMessage(action){
+
+	var alertContent = $('#formAlert > #formAlertContent')[0],
+		alertHeader = $('#formAlert > #headerAlert')[0],
+		alertContainer = $('#formAlert');
+
+	/*
+		1: hay campos faltantes.
+		2: confirmar borrar datos.
+		3: 
+	*/
+
+	$(alertContent).empty();
+
+	switch(action){
+
+		case 1:
+
+			alertHeader.innerHTML = '';
+
+			alertContent.innerHTML = 'Asegurate de lo siguiente: <ul>';
+
+			if($('.form-control').hasClass('has-error'))	alertContent.innerHTML += '<li>Que los campos no estén vacios.</li>';
+
+			if($('input.input-comprobante')[0].files.length <= 0)	alertContent.innerHTML += '<li>Que hayas seleccionado un archivo como comprobante.</li>';
+
+			if(!$('#checkboxTerms')[0].checked)	alertContent.innerHTML += '<li>Que hayas aceptado el reglamento.</li>';
+
+			alertContent.innerHTML += '</ul>';
+
+			$(alertContainer).addClass('alert-danger').slideDown(400, function(){
+
+				$(this).delay(4000).slideUp(400, function(){
+
+					$(this).removeClass('alert-danger');
+				});
+			});
+		break;
+
+		case 2:
+
+			var btnConfirm = document.createElement('button');
+				btnConfirm.className = 'btn btn-success';
+				btnConfirm.innerHTML = '<i class="fa fa-check"></i>';
+				btnConfirm.addEventListener('click', btnClearDataForm);
+
+			var btnCancel = document.createElement('button');
+				btnCancel.className = 'btn btn-danger';
+				btnCancel.innerHTML = '<i class="fa fa-times"></i>';
+				btnCancel.addEventListener('click', function(e){$('#formAlert').slideUp()});
+
+			var divBts = document.createElement('div');
+				divBts.appendChild(btnConfirm);
+				divBts.appendChild(btnCancel);
+
+			alertHeader.innerHTML = '¿Quiere limpiar los datos en el formulario?';
+
+			alertContent.appendChild(divBts);
+
+			$(alertContainer).addClass('alert-info').slideDown(400, function(){});
+		break;
+	}
+}
+
+function btnClearDataForm(e){
+
+	clearFormData();
+	$('#formAlert').slideUp();
 }

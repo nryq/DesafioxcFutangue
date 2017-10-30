@@ -91,10 +91,16 @@ li.active>a{
 }
 
 @media only screen and (min-width: 1024px) {
-	.form-name, .form-apellido, .form-sexo, .select-talla, .form-categoria, .form-sangre, .form-email, .form-club{
+	.form-name, .form-apellido, .form-sexo, .select-talla, .form-categoria,
+	.form-sangre, .form-email, .form-club{
 
 		width: 47%;
 		display: inline-block;
+	}
+
+	.phone-container{
+
+		width: 47%;
 	}
 
 	.form-name, .form-sexo, .form-categoria, .form-email{
@@ -138,13 +144,10 @@ li.active>a{
 	top: -30%;
 }
 
-/*.form-tab{
+.brands .heading{
 
-	position: relative;
-	display: inline-block;
-	background-color: #19B419;
-	padding: 1% 2%;
-}*/
+	margin-top: 10%;
+}
 
 .new-tab-btn > a:hover{
 
@@ -258,4 +261,45 @@ li.active>a{
 #alertContainer > *{
 
 	display: none;
+}
+
+#formAlert{
+
+	position: absolute;
+	top: 35%;
+	left: 10%;
+	width: 80%;
+	display: none;
+	text-align: center;
+}
+
+.project-item .project-photo, .project-item h5 {
+
+	text-align: center;
+	margin: auto;
+}
+
+.social{
+
+	position: fixed;
+	bottom: 5%;
+	left: 1%;
+}
+
+.social a i {
+
+	background: #19B419;
+	border-radius: 2px;
+	height: 35px;
+	width: 35px;
+	color: #fff;
+	transition: .5s;
+	padding-top: 11px;
+	text-align: center;
+}
+
+
+.social a i:hover {
+
+    background: #A3F303;
 }

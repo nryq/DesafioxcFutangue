@@ -14,7 +14,7 @@ function saveToDB(userArray){
 
 	$.ajax({
 		method: "POST",
-		url: "../backend/registerUser.php",
+		url: "./backend/registerUser.php",
 		data: formData,
 		processData: false,  // tell jQuery not to process the data
 		contentType: false,   // tell jQuery not to set contentType
@@ -35,7 +35,7 @@ function saveToDB(userArray){
 
 						toggleLoaderSubmit();
 						showAlert('success');
-						console.log("success: ", response);
+						showAlertMessage(2);
 						clearFormData();
 					}else{
 
@@ -73,4 +73,53 @@ function createVoucherFile(){
 function isJSON(string){
 
 	return /^[\],:{}\s]*$/.test(string.replace(/\\['\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
+}
+
+function sendContactoMessage(action, method, data){
+
+	$.ajax({
+		method: method,
+		url: action,
+		data: data,
+		async: true,
+		success: function(data){
+
+		},
+		error: function(err){
+
+		},
+		timeout: function(msg){
+
+		}
+	});
+}
+
+var response = '';
+
+function getAllImages(callback){
+
+	var dir = "./app/resources/galeria/";
+	var fileextension = ".jpg";
+
+	var arrayImagesName = [];
+	$.ajax({
+		//This will retrieve the contents of the folder if the folder is configured as 'browsable'
+		url: dir,
+		success: function (data) {
+			//List all file names in the page
+			$(data).find("td > a[href*='" + fileextension.toUpperCase() + "'], td > a:contains(" + fileextension.toLowerCase() + ")").each(function(){
+				// will loop through 
+
+				arrayImagesName.push($(this).attr("href"));
+			});
+
+
+			response =  data;
+			if(typeof callback != 'undefined')	callback(arrayImagesName);
+		},
+		done: function(data){
+
+			console.log('done', data);
+		}
+	});
 }
