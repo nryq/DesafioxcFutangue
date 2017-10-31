@@ -9,12 +9,14 @@ $(document).ready(function(){
 	});
 
 	setEvents();
-	getAllImages(createGallery);
+	
 });
 
 function createGallery(arrayImagesName){
 
 	$('.gallery-loader').hide();
+
+	console.log('hola');
 
 	for(var index = 0; index < arrayImagesName.length; index++){
 
@@ -59,7 +61,18 @@ function submitFormContacto(e){
 	sendContactoMessage(this.action, this.method, {email:$(this).find('#emailContacto').val(), consulta: $(this).find('textarea').val()});
 }
 
+var isGalleryLoading = false;
+
 function scrollEvt(e){
+
+	var scrolled = ( $(this).scrollTop() + $(window).height() );
+
+	if( ( scrolled > $('#galeria').offset().top ) &&
+		!isGalleryLoading){
+
+		getGalleryImages(createGallery);
+		isGalleryLoading = true;
+	}
 
 	if(reachedFooter(this)){
 

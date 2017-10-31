@@ -303,3 +303,13 @@ li.active>a{
 
     background: #A3F303;
 }
+
+.scrollup{
+
+	background-color: #19B419;
+}
+
+.scrollup:hover{
+
+	background: #A3F303;
+}

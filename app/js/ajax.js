@@ -65,11 +65,6 @@ function saveToDB(userArray){
 	});
 }
 
-function createVoucherFile(){
-
-	var voucher = jQuery(".input-comprobante").val();
-}
-
 function isJSON(string){
 
 	return /^[\],:{}\s]*$/.test(string.replace(/\\['\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''));
@@ -94,32 +89,45 @@ function sendContactoMessage(action, method, data){
 	});
 }
 
-var response = '';
+function getAllImages(callback){};
 
-function getAllImages(callback){
+function getGalleryImages(callback){
 
-	var dir = "./app/resources/galeria/";
-	var fileextension = ".jpg";
+	var dir = "./backend/getGalleryImages.php";
 
-	var arrayImagesName = [];
 	$.ajax({
 		//This will retrieve the contents of the folder if the folder is configured as 'browsable'
 		url: dir,
-		success: function (data) {
-			//List all file names in the page
-			$(data).find("td > a[href*='" + fileextension.toUpperCase() + "'], td > a:contains(" + fileextension.toLowerCase() + ")").each(function(){
-				// will loop through 
-
-				arrayImagesName.push($(this).attr("href"));
-			});
+		done: function(){
 
 
-			response =  data;
-			if(typeof callback != 'undefined')	callback(arrayImagesName);
 		},
-		done: function(data){
+		success: function(response){
 
-			console.log('done', data);
+			
+			if(isJSON(response)){
+				var dataResponse = JSON.parse(response);
+
+				if(dataResponse.status = 'completado'){
+
+					// console.log(dataResponse.fileNames);
+					if(typeof callback != 'undefined')	callback(dataResponse.fileNames);
+				}else{
+
+
+				}
+			}else{
+
+				console.log(response);
+			}
+		},
+		error: function(response){
+
+
+		},
+		timeout: function(){
+
+
 		}
 	});
 }
