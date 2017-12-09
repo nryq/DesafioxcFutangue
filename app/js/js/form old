@@ -1,0 +1,566 @@
+function createForm(){
+
+	var formCont = document.getElementsByClassName("formulario").length != undefined ? document.getElementsByClassName("formulario").length : 0;
+
+	var divForm = document.createElement('div');
+		divForm.id = "formulario_"+formCont;
+		divForm.className = 'formulario';
+
+	var divFirstForm = document.createElement('div');
+		divFirstForm.id = '1rst-half';
+		divFirstForm.className = 'hlf-form';
+
+	// var inputName = document.createElement('input');
+	// 	inputName.id = "inputName";
+	// 	inputName.className = "form-name";
+	// 	inputName.type = 'text';
+	// 	inputName.placeholder = "Ingrese su nombre";
+	// 	inputName.onblur = function (e){
+	// 		capitalizeFirstLetter(e.target);
+	// 	}
+	// 	inputName.oninput = function(e){
+	// 		nameTab(e.target.parentElement.parentElement);
+	// 	}
+
+	var inputName = createTextInput('inputName', 'form-name', 'Ingrese su nombre', 
+		{onblur: capitalizeFirstLetterFromEvt,oninput: createForm}
+	);
+
+	// var inputRut = document.createElement('input');
+	// 	inputRut.id = "inputRut";
+	// 	inputRut.className = 'form-rut';
+	// 	inputRut.type = "text";
+	// 	inputRut.placeholder = "Ingrese su RUT";
+	// 	inputRut.onblur = function(e){
+	// 		formatearRut(e.target);
+	// 	}
+
+	var inputRut = createTextInput('inputRut', 'form-rut', 'Ingrese su RUT', {onblur: formatearRut});
+
+	var inputLast = document.createElement('input');
+		inputLast.id = "inputLast";
+		inputLast.className = "form-apellido";
+		inputLast.type = "text";
+		inputLast.placeholder = "Ingrese sus Apellidos";
+		inputLast.onblur = function (e){
+			capitalizeFirstLetter(e.target);
+		}
+		inputLast.oninput = function(e){
+			nameTab(e.target.parentElement.parentElement);
+		}
+
+	var lastNameEvt = {onblur: capitalizeFirstLetterFromEvt, oninput:nameTab};
+	var inputLast = createTextInput('inputLast', 'form-apellido', 'Ingrese sus Apellidos', lastNameEvt);
+
+	var inputEmail = document.createElement('input');
+		inputEmail.id = "inputEmail";
+		inputEmail.className = "form-email";
+		inputEmail.type="email";
+		inputEmail.placeholder="Ingrese email";
+		inputEmail.onblur = function(e){
+			validarMail(e.target);
+		}
+    var contDate = document.createElement('div');
+  		contDate.className = "date-cont";
+          
+    var lblDate = document.createElement('label');
+  		lblDate.className = "date-label";
+  		lblDate.innerHTML = "Fecha de Nacimiento: ";
+
+	var inputDate = document.createElement('input');
+		inputDate.id = "inputDate";
+		inputDate.className = "form-date";
+		inputDate.type="date";
+
+  	contDate.appendChild(lblDate);
+	contDate.appendChild(inputDate);
+
+	var divScndForm = document.createElement('div');
+		divScndForm.id = '2nd-half';
+		divScndForm.className = 'hlf-form';
+
+	var selectCategory = document.createElement('select');
+		selectCategory.id = "selectCategory";
+		selectCategory.className = "form-categoria";
+	
+	var cat1 = document.createElement('option');
+		// cat1.value ="categoria_0";
+		cat1.innerHTML = "Selecciona Categoria";
+
+	var cat2 = document.createElement('option');
+		cat2.value ="categoria_1";
+		cat2.innerHTML = "categoria_1";
+
+	var cat3 = document.createElement('option');
+		cat3.value ="categoria_2";
+		cat3.innerHTML = "categoria_2";
+
+	var cat4 = document.createElement('option');
+		cat4.value ="categoria_3";
+		cat4.innerHTML = "categoria_3";
+
+	var categoriesArray = [
+		cat1, cat2,
+		cat3, cat4
+	];
+
+	for(var i=0; i<categoriesArray.length; i++){
+
+		selectCategory.appendChild(categoriesArray[i]);
+	}
+
+	var selectSexo = document.createElement('select');
+		selectSexo.id = "sexo";
+		selectSexo.className = "form-sexo";
+
+	var sexos = ["Sexo", "Hombre", "Mujer"];
+
+	for(var c = 0; c<sexos.length; c++){
+
+		var sexo = document.createElement('option');
+		sexo.innerHTML = sexos[c];
+
+		selectSexo.appendChild(sexo);
+	}
+
+	var sangreCont = document.createElement("div");
+		sangreCont.className = "form-sangre";
+
+	var labelSangre = document.createElement("label");
+		labelSangre.innerHTML = "Grupo Sanguineo";
+
+	var selectSangre = document.createElement("select");
+		selectSangre.id = "selectSangre";
+
+	var grupos = ["--", "A+", "A-","B+","B-","AB+","AB-","O+","O-"];
+
+	for(var i = 0; i<grupos.length; i++){
+
+		var opcionSangre = document.createElement('option');
+		opcionSangre.innerHTML = grupos[i];
+
+		selectSangre.appendChild(opcionSangre);
+	}
+
+	sangreCont.appendChild(labelSangre);
+	sangreCont.appendChild(selectSangre);
+
+	var divPhone = document.createElement("div");
+  		divPhone.className="phone-container";
+  		divPhone.style.cssFloat = "left";
+  
+  	var divPhoneAux = document.createElement("div");
+  		divPhoneAux.className="phone-container";
+  		divPhoneAux.style.cssFloat = "right";
+  
+  	var lblphone = document.createElement("div");
+  		lblphone.innerHTML = "+56";
+ 		lblphone.className="phone-zone";
+  	var lblphonea = document.createElement("div");
+  		lblphonea.innerHTML = "+56";
+  		lblphonea.className="phone-zone";
+  
+	var inputPhone = document.createElement('input');
+		inputPhone.id = 'fono';
+		inputPhone.className="form-phone";
+		inputPhone.type="text";
+		inputPhone.placeholder="Fono contacto";
+  		inputPhone.onkeypress = allowNumbrePhone;
+
+	var inputPhoneAux = document.createElement('input');
+		inputPhoneAux.id = 'fonoAux';
+		inputPhoneAux.className="form-phone";
+		inputPhoneAux.type="text";
+		inputPhoneAux.placeholder="Fono emergencia";
+  		inputPhoneAux.onkeypress = allowNumbrePhone;
+  
+  	divPhone.appendChild(lblphone);
+  	divPhone.appendChild(inputPhone);
+  
+ 	divPhoneAux.appendChild(lblphonea);
+  	divPhoneAux.appendChild(inputPhoneAux);
+
+
+	var alergias = document.createElement('textarea');
+		alergias.id = "alergias";
+		alergias.className = "form-textarea";
+		alergias.placeholder = "Alergias / Contraindicaciones";
+
+	var checkboxTerms = document.createElement('input');
+		checkboxTerms.id = "checkboxTerms";
+		checkboxTerms.type = "checkbox";
+
+	var labelTerms = document.createElement("label");
+		labelTerms.innerHTML = "He leido los terminos";
+		labelTerms.appendChild(checkboxTerms);
+
+	divFirstForm.appendChild(inputRut);
+	divFirstForm.appendChild(inputName);
+	divFirstForm.appendChild(inputLast);
+	divFirstForm.appendChild(inputEmail);
+	divFirstForm.appendChild(contDate);
+	divFirstForm.appendChild(selectCategory);
+
+	divForm.appendChild(divFirstForm);
+
+	divScndForm.appendChild(sangreCont);
+  	divScndForm.appendChild(selectSexo);
+	divScndForm.appendChild(divPhone);
+	divScndForm.appendChild(divPhoneAux);
+	divScndForm.appendChild(alergias);
+
+	divForm.appendChild(divScndForm);
+
+	document.getElementById('forms').insertBefore(divForm, document.querySelector('.input-comprobante'));
+	addTab();
+}
+
+function createTextInput(ide, classN, placeholder, objEvt){
+
+	var out = document.createElement('input');
+		out.id = ide;
+		out.className = classN;
+		out.placeholder = placeholder;
+		out.type = 'text';
+
+	var keys = Object.keys(objEvt);
+
+	if (typeof objEvt != 'undefined') {
+		for(var i = 0; i < keys.length; i++){
+
+			out.addEventListener(keys[i].replace('on', ''), objEvt[keys[i]]);
+		}
+	}
+
+	console.log(out);
+
+	return out;
+}
+
+function allowNumbrePhone(e){
+    if(e.keyCode < 48 || e.keyCode > 57){
+      return false;
+    }
+}
+
+function nameTab(e){
+
+	var form = jQuery(this).closest('.formulario');
+	var inputLastName = jQuery(form).find("#inputLast");
+	var inputName = jQuery(form).find("#inputName");
+
+	formIndex = parseInt(form[0].id.split('_')[1]) +1;
+	tab = document.getElementById("tab_"+formIndex);
+
+	var tabHtml = '';
+
+	if(inputLastName.val() != "" || inputName.val() != ""){
+
+		tabHtml = inputLastName.val() == "" ? "" : inputLastName.val().slice(0, 6);
+		tabHtml += inputLastName.val().length > 6 ? "..." : " ";
+		tabHtml += inputName.val() == "" ? "" : inputName.val().slice(0, 8);
+		tabHtml += inputName.val().length > 8 ? "..." : "";
+	}else{
+
+		tabHtml = "Formulario "+formIndex;
+	}
+
+	tab.children[0].innerHTML = tabHtml;
+}
+
+function addTab(){
+
+	hideAllForms();
+
+	var newTab = document.createElement('div');
+	newTab.id = "tab_"+(document.getElementsByClassName('form-tab').length+1);
+	newTab.className = "form-tab active";
+	// newTab.innerHTML = 
+	newTab.addEventListener("click", showForm, false);
+
+	var labelTitle = document.createElement('label');
+	labelTitle.id = 'lblName';
+	labelTitle.className = 'tab-name';
+	labelTitle.innerHTML = "Formulario "+ (document.getElementsByClassName('form-tab').length+1);
+
+	var btnRemove = document.createElement('div');
+	btnRemove.className = "remove-form";
+	btnRemove.onclick = function(e){
+		deleteForm(e.target);
+		e.stopPropagation();
+	}
+
+	newTab.appendChild(labelTitle);
+	newTab.appendChild(btnRemove);
+
+	document.getElementById('navTabs').insertBefore(newTab, document.getElementById('addNewTab'));
+
+	hideAllForms();
+
+	jQuery(newTab).addClass("active");
+	var tabId = jQuery(newTab).attr("id");
+	jQuery('#formulario_'+(parseInt(tabId.split("_")[1]) -1)).show();
+}
+
+function hideAllForms(){
+
+	jQuery('.form-tab').removeClass("active");
+	jQuery('.formulario').hide();
+}
+
+function showForm(target){
+
+	hideAllForms();
+
+	this.classList.add('active');
+	var tabId = jQuery(this).attr("id");
+	jQuery('#formulario_'+(parseInt(tabId.split("_")[1]) -1)).show();
+}
+
+function deleteForm(btn){
+
+	var tab = btn.parentElement;
+	var tabParent = tab.parentElement;
+	var tabIndex = parseInt(tab.id.split("_")[1]) - 1;
+
+	var form = document.getElementById('formulario_'+tabIndex);
+	var formParent = form.parentElement;
+
+	tabParent.removeChild(tab);
+	formParent.removeChild(form);      
+  
+	if(jQuery(tab).hasClass("active")){
+		//console.log('form: ',jQuery("#forms").children().first());
+        jQuery("#forms").children().first().show();
+        jQuery(tabParent).children().first().addClass("active");
+	}
+}
+
+function validarForm(){
+
+	var flag = true;
+
+	var formArray = document.getElementsByClassName("formulario");
+  
+  	jQuery(".form-tab").css("box-shadow", "none");
+
+	for(var index = 0; index < formArray.length; index++){
+
+		var arrayTextField = jQuery(formArray[index]).find('#inputRut, #inputName, #inputLast, #inputDate, #fono, #fonoAux');
+
+		var arraySelectField = jQuery(formArray[index]).find('#selectCategory, #sexo, #selectSangre');
+
+		jQuery(arrayTextField).each(function(index){
+			if(flag){
+				if(jQuery(this).val() != "" && flag == true){
+
+					flag = true;
+				}else{
+
+					flag = false;
+				}
+			}
+			if(jQuery(this).val() != "" && flag == true){
+				jQuery(this).css("box-shadow", "none");
+
+			}else{
+				
+				jQuery(this).css("box-shadow", "inset 0px 0px 10px 1px rgba(255,0,0,0.63)");
+			}
+		});
+
+		jQuery(arraySelectField).each(function(index){
+
+			if (flag) {
+
+				if(jQuery(this).val() !=  'Selecciona Categoria' &&
+					jQuery(this).val() != 'Sexo' &&
+					jQuery(this).val() != '--'
+					)
+				{
+
+					flag = true;
+				}else{
+
+					flag = false;
+				}
+			};
+			if(jQuery(this).val() !=  'Selecciona Categoria' &&
+				jQuery(this).val() != 'Sexo' &&
+				jQuery(this).val() != '--'
+				)
+			{
+
+				jQuery(this).css("box-shadow", "none");
+
+			}else{
+              	
+				jQuery(this).css("box-shadow", "inset 0px 0px 10px 1px rgba(255,0,0,0.63)");
+			}
+          if(!flag){
+            marcarFormIncompleto(jQuery(this));
+          }
+		});
+
+		if(!validarMail(jQuery(formArray[index]).find('#inputEmail')[0]) && !flag){
+			flag = false;
+		}
+      
+
+	}
+
+	var checkboxT = document.querySelectorAll('#checkboxTerms');
+	for(var index = 0; index < checkboxT.length; index++){
+
+		if(!checkboxT[index].checked){
+
+			flag = false;
+			alert("Debes aceptar el reglamento");
+		}
+	}
+	
+	return flag;
+}
+
+function marcarFormIncompleto(element){
+  
+    var index = parseInt(jQuery(element).closest(".formulario").attr("id").split("_")[1])+1;
+  	jQuery("#tab_"+index).css("box-shadow", "0px 5px 5px -3px rgba(255,0,0,0.75)");
+}
+
+function validarMail(inputMail){
+
+	var email = inputMail.value;
+
+	var flag = false;
+
+	if(email.match(/@/g) != null){
+		if(email.match(/@/g).length == 1){
+			if(email.match(/\./g) != null){
+				flag = true;
+			}else{
+				flag = false;
+			}
+		}else{
+			flag = false;
+		}
+	}else{
+		flag = false;
+	}
+
+	if(flag){
+		jQuery(inputMail).css("box-shadow", "none");
+	}else{
+		jQuery(inputMail).css("box-shadow", "inset 0px 0px 10px 1px rgba(255,0,0,0.63)");
+	}
+	return flag;
+}
+
+function formatearRut(e){
+
+	var field = e.target;
+
+	var rut = field.value;
+
+	if(rut != ""){
+		rut = rut.replace(/,/g, ".");
+
+		if(rut.indexOf("-") == -1){
+
+			rut = rut.slice(0, -1)+ "-" + rut.slice(-1);
+		}
+
+		var rutAux = rut.split("-")[0];
+		var digitoVer = rut.split("-")[1];
+		rutAux = rutAux.replace(/\./g, "");
+
+		if(rutAux.match(/\./g) == null){
+
+			for(var index = 3; index < rutAux.length; index += 4){
+
+				rutAux = rutAux.slice(0, -index)+"."+rutAux.slice(-index);
+			}
+		}
+
+		field.value = rutAux+"-"+digitoVer;
+	}else{
+		ield.value = "";
+	}
+}
+
+function capitalizeFirstLetterFromEvt(e) {
+
+	var element = e.target;
+	
+	if(element.value != ""){
+
+		var string = element.value.split(" ");
+		var stringOut = '';
+		for(var index = 0; index < string.length; index++){
+			
+			stringOut += string[index].charAt(0).toUpperCase() + string[index].slice(1) + (index+1 < string.length ? " " : "");
+		}
+
+		element.value = stringOut;
+
+		nameTab(element.parentElement);
+	}
+}
+
+function capitalizeFirstLetter(element) {
+
+	if(element.value != ""){
+
+		var string = element.value.split(" ");
+		var stringOut = '';
+		for(var index = 0; index < string.length; index++){
+			
+			stringOut += string[index].charAt(0).toUpperCase() + string[index].slice(1) + (index+1 < string.length ? " " : "");
+		}
+
+		element.value = stringOut;
+
+		nameTab(element.parentElement);
+	}
+}
+
+function ingresarUsuarios(){
+
+	if(validarForm()){
+
+		console.log('TODO', getDataForm());
+		saveToDB(getDataForm());
+	}else{
+
+
+	}
+}
+
+function getDataForm(){
+
+	var usersArray = [];
+	// var formArray = document.getElementsByClassName("formulario");
+
+	jQuery('.formulario').each(function(index){
+
+		jQuery(this).find("input, select, textarea");
+
+		var user = {};
+
+		user.rut = jQuery(this).find("#inputRut").val();
+		user.name = jQuery(this).find("#inputName").val();
+		user.lastname = jQuery(this).find("#inputLast").val();
+		user.email = jQuery(this).find("#inputEmail").val();
+		user.date = jQuery(this).find("#inputDate").val();
+		user.category = jQuery(this).find("#selectCategory").val();
+		user.gender = jQuery(this).find("#sexo").val();
+		user.blood = jQuery(this).find("#selectSangre").val();
+		user.phone = jQuery(this).find("#fono").val();
+		user.phoneEmergency = jQuery(this).find("#fonoAux").val();
+		user.allergy = jQuery(this).find("#alergias").val();
+
+		usersArray.push(user);
+	});
+
+	return usersArray;
+}
